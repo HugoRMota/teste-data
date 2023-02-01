@@ -6,13 +6,15 @@
     <div class="header-buttons">
       <AppButton @click="emit('openClient')">Novo Cliente</AppButton>
       <AppButton @click="emit('openProduct')">Novo Produto</AppButton>
+      <AppButton @click="emit('openClientProduct')">Novo Vinculo</AppButton>
+
     </div>
   </div>
 </template>
 <script setup>
 import AppButton from "../AppButton/AppButton.vue";
 
-const emit = defineEmits(["openClient", "openProduct"]);
+const emit = defineEmits(["openClient", "openProduct", "openClientProduct"]);
 </script>
 <style scoped lang="scss">
 .header {

@@ -6,11 +6,12 @@
       </div>
       <div class="content">
         <input
-          :value="inputValue"
+          :value="modelValue"
           :class="classInput"
           v-maska="mask"
           v-bind="argsBind"
           @input="update"
+          @blur="handleBlur"
           @keyup.enter="$emit('on-keyup-enter')"
         />
       </div>
@@ -20,11 +21,15 @@
 </template>
 
 <script setup>
-// import { useVeeField } from "@/composables";
-import { useField } from "vee-validate";
+import { useField, defineRule } from "vee-validate";
 import { maska } from "maska";
 import { computed, defineEmits, defineProps, toRef, useSlots } from "vue";
 import { useAttrs } from "vue";
+
+import rules from "@vee-validate/rules";
+Object.keys(rules).forEach((rule) => {
+  defineRule(rule, rules[rule]);
+});
 
 const vMaska = maska;
 
@@ -35,8 +40,14 @@ const slots = useSlots();
 const emits = defineEmits(["update:modelValue", "on-keyup-enter"]);
 
 const props = defineProps({
-  name: { type: String, default: "default" },
-  modelValue: { type: [String, Number] },
+  name: {
+    type: String,
+    default: "default",
+  },
+
+  modelValue: {
+    type: [String, Number],
+  },
 
   mask: {
     type: String,
@@ -44,11 +55,6 @@ const props = defineProps({
   },
 
   label: {
-    type: String,
-    default: "",
-  },
-
-  info: {
     type: String,
     default: "",
   },

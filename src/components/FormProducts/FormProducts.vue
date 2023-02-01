@@ -3,33 +3,13 @@
     <form @submit.prevent="save" class="px-6 py-6">
       <div class="grid grid-cols-2 gap-6">
         <AppInput
-          v-model="formUser.name"
+          v-model="formProduct.name"
           name="Name"
           rules="required"
           label="Nome"
           type="text"
         ></AppInput>
-        <AppInput
-          v-model="formUser.cpf"
-          name="Cpf"
-          label="CPF"
-          type="tel"
-          mask="###.###.###-##"
-        ></AppInput>
-        <AppInput
-          v-model="formUser.phone"
-          name="Phone"
-          label="Telefone"
-          type="tel"
-          mask="(##) #####-####"
-        ></AppInput>
-        <AppInput
-          v-model="formUser.email"
-          name="Email"
-          label="Email"
-          type="email"
-        ></AppInput>
-        <AppCheckbox name="ativo" title="Ativo" v-model="formUser.active" />
+        <AppCheckbox name="ativo" title="Ativo" v-model="formProduct.active" />
       </div>
       <div class="flex justify-end space-x-6 py-3">
         <AppButton type="button">Fechar</AppButton>
@@ -48,7 +28,7 @@ import { ref, watch } from "vue";
 
 const emit = defineEmits(["update"]);
 const props = defineProps({
-  user: {
+  product: {
     type: Object,
     default: {},
   },
@@ -58,13 +38,13 @@ const props = defineProps({
   },
 });
 
-const formUser = ref({});
+const formProduct = ref({});
 
 const save = () => {
   if (props.create) {
-    emit("update", { id: generateId(), ...formUser.value });
+    emit("update", { id: generateId(), ...formProduct.value });
   } else {
-    emit("update", formUser.value);
+    emit("update", formProduct.value);
   }
 };
 
@@ -77,7 +57,7 @@ const generateId = () => {
 watch(
   props,
   () => {
-    formUser.value = props.user;
+    formProduct.value = props.product;
   },
   { immediate: true }
 );
