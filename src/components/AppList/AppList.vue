@@ -4,7 +4,7 @@
     <ul role="list">
       <li v-for="item in list">
         <div class="flex items-center space-x-3">
-          <h2>{{ item.name }}</h2>
+          <h2>{{ item.name || `${item.product.name} - ${item.client.name}` }}</h2>
           <AppTag :active="item.active">{{
             item.active ? "Ativo" : "Desabilitado"
           }}</AppTag>

@@ -1,13 +1,14 @@
 <template>
   <div>
     <form @submit.prevent="save" class="px-6 py-6">
-      <div class="grid grid-cols-2 gap-6">
+      <div class="w-full space-y-6 flex flex-col items-center">
         <vue-select
           v-model="formProduct.product"
           label="Produto"
           label-by="name"
           :options="product"
-          @input="selected"
+          class="w-full"
+          placeholder="Selecione Produto"
         >
         </vue-select>
         <vue-select
@@ -15,7 +16,8 @@
           label-by="name"
           label="Cliente"
           :options="client"
-          @input="selected"
+          placeholder="Selecione Cliente"
+          class="w-full"
         >
         </vue-select>
       </div>
@@ -30,13 +32,12 @@
 import AppButton from "../AppButton/AppButton.vue";
 
 import VueSelect from "vue-next-select";
+import "vue-next-select/dist/index.min.css";
 
 import { Form } from "vee-validate";
 import { ref, watch } from "vue";
 
-const seletecItems = ref();
-
-const emit = defineEmits(["update"]);
+const emit = defineEmits(["update", 'close']);
 const props = defineProps({
   selectedClientProduct: {
     type: Object,
@@ -66,13 +67,6 @@ const save = () => {
   }
 };
 
-const selected = (id) => {
-  seletecItems.value = id;
-  console.log(
-    "🚀 ~ file: FormClientProduct.vue:71 ~ seletec ~ seletecItems.value",
-    seletecItems.value
-  );
-};
 const generateId = () => {
   return Math.floor((1 + Math.random()) * 0x10000)
     .toString(16)
@@ -87,3 +81,9 @@ watch(
   { immediate: true }
 );
 </script>
+
+<style>
+.vue-select {
+  @apply w-full;
+}
+</style>

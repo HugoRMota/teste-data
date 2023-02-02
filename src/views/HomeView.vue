@@ -149,6 +149,7 @@ const updateClientProduct = (id) => {
   <AppDrawer
     v-model="isProductClient"
     :title="type == 'Create' ? 'Novo Vinculo' : 'Editar Vinculo'"
+    size="sm"
   >
     <FormClientProduct
       :create="type == 'Create'"
